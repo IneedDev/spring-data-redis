@@ -8,12 +8,19 @@ import org.springframework.data.redis.core.index.Indexed;
 
 @RedisHash("Event")
 @Data
-@AllArgsConstructor
 public class Event {
 
-    private String id;
+    private int id;
     private String phoneNumber;
     private boolean stackingDenied;
     private String boxMachineName;
     private int preferredPickupDate;
+
+    public Event(int id, String phoneNumber, boolean stackingDenied, String boxMachineName, int preferredPickupDate) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.stackingDenied = stackingDenied;
+        this.boxMachineName = boxMachineName;
+        this.preferredPickupDate = preferredPickupDate;
+    }
 }

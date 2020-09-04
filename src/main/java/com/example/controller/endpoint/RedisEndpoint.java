@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.ZonedDateTime;
 
 @Api
-public interface HealthEndpoint {
+public interface RedisEndpoint {
 
     @ApiOperation(value = "Health endpoint", httpMethod = "GET", response = ZonedDateTime.class)
     @GetMapping("/health")
     ResponseEntity<HealthResponse> health();
+
+    @ApiOperation(value = "Redis feed endpoint", httpMethod = "GET", response = ZonedDateTime.class)
+    @GetMapping("/feed")
+    int feedRedis();
 }

@@ -6,18 +6,25 @@ services:
     image: $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION
     ports:
       - "8086:8086"
+    networks:
+      - spring
 #    depends_on:
 #      - redis
     environment:
       - "LOG_TO_KAFKA_ENABLED=TRUE"
   redis:
     image: "redis:alpine"
-    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    command: [ "redis-server", "--protected-mode", "no" ]
     ports:
       - "6379:6379"
+    networks:
+     - spring
     volumes:
       - $PWD/redis-data:/var/lib/redis
       - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
     environment:
       - REDIS_REPLICATION_MODE=master
+networks:
+    spring:
+      external: true
 
