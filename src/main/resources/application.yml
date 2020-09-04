@@ -1,0 +1,32 @@
+logging:
+    logLevel: ${LOG4J_LOGGING_LEVEL:debug}
+    shouldLogToKafka: ${LOG_TO_KAFKA_ENABLED:true}
+server:
+    port: ${PORT:8086}
+    use-forward-headers: true
+tomcat:
+    maxKeepAliveRequests: ${MAX_KEEP_ALIVE_REQUESTS:150}
+    keepAliveTimeout:  ${KEEP_ALIVE_TIMEOUT:60}
+    connectionTimeout: ${CONNECTION_TIMEOUT:50000}
+    maxConnections: ${MAX_CONNECTIONS:900}
+    acceptCount: ${ACCEPT_COUNT:1000}
+    minSpareThreads: ${MIN_SPARE_THREADS:50}
+    maxThreads: ${MAX_THREAD:100}
+app:
+    name: spring-data-redis
+    rest:
+        connectTimeout: ${APP_REST_CONNECT_TIMEOUT:30000}
+        readTimeout: ${APP_REST_READ_TIMEOUT:30000}
+        writeTimeout: ${APP_REST_WRITE_TIMEOUT:30000}
+#spring:
+#    kafka:
+#        consumer:
+#            bootstrap-servers: localhost:9092
+#            group-id: group_id
+#            auto-offset-reset: earliest
+#            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#        producer:
+#            bootstrap-servers: localhost:9092
+#            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#            value-serializer: org.apache.kafka.common.serialization.StringSerializer

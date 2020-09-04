@@ -1,0 +1,23 @@
+# for local build only
+version: '2'
+services:
+  spring-data-redis:
+    container_name: $CONTAINER_NAME
+    image: $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION
+    ports:
+      - "8086:8086"
+#    depends_on:
+#      - redis
+    environment:
+      - "LOG_TO_KAFKA_ENABLED=TRUE"
+  redis:
+    image: "redis:alpine"
+    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/redis-data:/var/lib/redis
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
