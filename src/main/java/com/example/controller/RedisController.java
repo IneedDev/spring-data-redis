@@ -1,27 +1,35 @@
 package com.example.controller;
 
 import com.example.controller.endpoint.RedisEndpoint;
-import com.example.model.Event;
+import com.example.logger.Logger;
 import com.example.model.HealthResponse;
-import com.example.repo.EventRepository;
-import com.example.service.impl.HealthService;
+import com.example.service.impl.HealthServiceImpl;
+import com.example.service.impl.RedisServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StopWatch;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/rest/user")
+@NoArgsConstructor
 public class RedisController implements RedisEndpoint {
 
-    private final HealthService healthService;
-    private final EventRepository eventRepository;
+    @Autowired
+    private HealthServiceImpl healthService;
+
+    @Autowired
+    private RedisServiceImpl redisService;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -29,31 +37,32 @@ public class RedisController implements RedisEndpoint {
     @Override
     public ResponseEntity<HealthResponse> health() {
         HealthResponse healthResponse = healthService.generateHealthResponse();
+        System.out.println("dupa");
         return new ResponseEntity<>(healthResponse, HttpStatus.OK);
     }
 
     @Override
-    public int feedRedis() {
-        int number = 2;
-        //generateEvents(number);
-
-        String phoneNumber = "123465";
-
-
-        Map<String, String> valueMap = new HashMap<>();
-        valueMap.put("phoneNumber", phoneNumber);
-        valueMap.put("boxMachine", "KRK132");
-
-
-        redisTemplate.opsForHash().put("Event:1:123", "fdfdff", "new test");
-        redisTemplate.opsForHash().putAll("Event:1:"+phoneNumber, valueMap);
-
-        return number;
+    public double feedRedis() {
+        StopWatch crunchifyWatch = new StopWatch();
+        crunchifyWatch.start();
+        Logger.logDataStartUploadToRedis();
+        redisService.generateRedisData();
+        Logger.logDataStopUploadToRedis();
+        crunchifyWatch.stop();
+        System.out.println("\n1. prettyPrint Result: " + crunchifyWatch.prettyPrint());
+        return crunchifyWatch.getTotalTimeSeconds();
     }
 
-    private void generateEvents(int n) {
-        for (int i = 0; i < n; i++) {
-            eventRepository.save(new Event(i, "132", true, "KRK-001", 2));
-        }
+    @Override
+    public List<String> getDataFromRedis(String pattern) {
+        System.out.println("getAllData");
+        return redisService.getDataFromRedis(pattern);
+    }
+
+    @Override
+    public void flushDatabase() {
+        Logger.logDataStartFlushDbToRedis();
+        redisService.flushDatabase();
+        Logger.logDataStopFlushDbToRedis();
     }
 }

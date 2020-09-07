@@ -24,7 +24,6 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory cf) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
-
         template.setDefaultSerializer(new StringRedisSerializer());
         template.setConnectionFactory(cf);
         template.setEnableTransactionSupport(true);

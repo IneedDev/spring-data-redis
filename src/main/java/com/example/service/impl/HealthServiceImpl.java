@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Service
 @AllArgsConstructor
-public class HealthService implements com.example.service.HealthService {
+public class HealthServiceImpl implements com.example.service.HealthService {
 
     private EnvHelper envHelper;
 
