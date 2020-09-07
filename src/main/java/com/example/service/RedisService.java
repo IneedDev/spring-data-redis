@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface RedisService {
 
-    void generateRedisData ();
+    void generateRedisData (int version, int volume);
 
-    List<String> getDataFromRedis(String pattern);
+    List<String> getDataFromRedisByKeyMatchingPattern(String pattern);
 
     void flushDatabase();
 }

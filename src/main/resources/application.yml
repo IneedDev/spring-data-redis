@@ -18,15 +18,11 @@ app:
         connectTimeout: ${APP_REST_CONNECT_TIMEOUT:30000}
         readTimeout: ${APP_REST_READ_TIMEOUT:30000}
         writeTimeout: ${APP_REST_WRITE_TIMEOUT:30000}
-#spring:
-#    kafka:
-#        consumer:
-#            bootstrap-servers: localhost:9092
-#            group-id: group_id
-#            auto-offset-reset: earliest
-#            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#        producer:
-#            bootstrap-servers: localhost:9092
-#            key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+spring:
+    cache:
+        type: redis
+    redis:
+        host: localhost
+        port: 6379
+#        host: 192.168.71.210
+#        port: 31379

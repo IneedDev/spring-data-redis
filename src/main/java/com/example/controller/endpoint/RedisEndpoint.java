@@ -18,8 +18,8 @@ public interface RedisEndpoint {
     ResponseEntity<HealthResponse> health();
 
     @ApiOperation(value = "Redis feed endpoint", httpMethod = "GET")
-    @GetMapping("/feed")
-    double feedRedis();
+    @GetMapping("/feed/{version}/{volume}")
+    void feedRedis(@PathVariable int version, @PathVariable int volume);
 
     @ApiOperation(value = "Redis get all data by scan", httpMethod = "GET")
     @GetMapping("/getAllData/{pattern}")

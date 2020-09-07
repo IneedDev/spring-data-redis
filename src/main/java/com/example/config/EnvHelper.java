@@ -17,6 +17,12 @@ public class EnvHelper {
     @Value("${app.name}")
     private String applicationName;
 
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.redis.port}")
+    private int redisPort;
+
     public LocalDateTime getStartDate() {
         return startDate;
     }
