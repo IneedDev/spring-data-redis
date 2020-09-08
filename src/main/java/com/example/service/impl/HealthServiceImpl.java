@@ -1,15 +1,12 @@
 package com.example.service.impl;
 
-import com.example.DateHelper;
+import com.example.utils.DateHelper;
 import com.example.config.EnvHelper;
 import com.example.model.HealthResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 @Service

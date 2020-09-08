@@ -2,7 +2,6 @@ package com.example.logger;
 
 import lombok.experimental.UtilityClass;
 import org.apache.logging.log4j.LogManager;
-import org.springframework.util.StopWatch;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

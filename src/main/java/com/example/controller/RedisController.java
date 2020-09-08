@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.controller.endpoint.RedisEndpoint;
 import com.example.logger.Logger;
-import com.example.model.DataRedisInput;
 import com.example.model.HealthResponse;
 import com.example.service.impl.HealthServiceImpl;
 import com.example.service.impl.RedisServiceImpl;

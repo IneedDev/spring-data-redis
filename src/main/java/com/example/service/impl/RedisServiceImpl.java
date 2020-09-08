@@ -1,34 +1,19 @@
 package com.example.service.impl;
 
-import com.example.logger.Logger;
 import com.example.model.DataRedisInput;
 import com.example.service.RedisService;
-import com.example.utils.Generator;
-import io.lettuce.core.ScanArgs;
-import io.lettuce.core.ScanIterator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisServerCommands;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnection;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.ScanParams;
-import redis.clients.jedis.ScanResult;
 
-import java.io.IOException;
 import java.util.*;
 
 import static com.example.utils.Generator.phoneNumberGenerator;
-import static redis.clients.jedis.ScanParams.SCAN_POINTER_START;
 
 @Slf4j
 @Service
@@ -117,7 +102,7 @@ public class RedisServiceImpl implements RedisService{
 //        } while (!cur.equals(SCAN_POINTER_START));
 //        return list;
 
-        ScanOptions options = ScanOptions.scanOptions().match("phone3:767857180:testProfile").count(100).build();
+        ScanOptions options = ScanOptions.scanOptions().match(pattern).count(100).build();
         RedisConnectionFactory factory = redisTemplate.getConnectionFactory();
         RedisConnection conn = factory.getConnection();
         Cursor<byte[]> cursor = conn.scan(options);
