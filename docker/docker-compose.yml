@@ -16,7 +16,7 @@ services:
     image: "redis:alpine"
     command: [ "redis-server", "--protected-mode", "no" ]
     ports:
-      - "6379:6379"
+      - "6378:6379"
     networks:
      - spring
     volumes:
